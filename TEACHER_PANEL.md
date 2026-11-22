@@ -40,3 +40,14 @@
 - Сборка подписана ad-hoc, без сертификата Apple. При первом запуске нужно подтверждение в «Конфиденциальность и безопасность» (см. `scripts/teacher-install-readme.txt`). С аккаунтом Apple Developer подпись и нотаризацию включают секреты в workflow.
 - Entitlement Automatic Assessment Configuration Apple выдаёт только по запросу, поэтому всегда используется классический киоск-режим SEB (`lockdownModePolicy = EnforceClassic`).
 - Настройки панели накладываются поверх настроек из `.seb` файла. Из-за этого Config Key / Browser Exam Key может отличаться от ключа исходного `.seb`. Если в Moodle включена проверка ключей SEB, сверьте ключ на тестовом запуске.
+
+## SEBастьян: ключ доступа и установщик
+
+- Перед панелью преподавателя SEB спрашивает у сервера `https://seb.korova.pro/api/v1/gate`, нужен ли ключ.
+  Если в боте включён «Вход по ключу», появляется окно «Ключ доступа»: одноразовый ключ из Telegram-бота SEBастьян.
+  Код — класс `SEBAccessKeyGate` в `Classes/TeacherPanel/SEBTeacherPanelController.m`, вызов — в `SEBController.m`.
+- Если сервер недоступен: когда в прошлый раз ключ был не нужен — SEB запускается; иначе — окно «Нет связи» с кнопкой «Повторить».
+- Другой адрес сервера: ключ `SEBastianServerURL` в Info.plist.
+- Установщик: `build/SEBastian-mac.dmg` с фоном и стрелкой (`scripts/dmg/`, собирается `dmgbuild`).
+  Фон перерисовывается `scripts/dmg/make_background.py`.
+- Каждая успешная сборка из `main` публикуется в Releases — сайт SEBастьяна раздаёт файл оттуда.

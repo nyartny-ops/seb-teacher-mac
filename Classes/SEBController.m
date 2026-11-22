@@ -3003,14 +3003,22 @@ static NSString * const kSEBWiFiKeychainService = @"org.safeexambrowser.SEB.wifi
         if (self.aboutWindow.isVisible) {
             [self closeAboutWindow];
         }
-        [[SEBTeacherPanelController sharedController] showWithCompletion:^(BOOL startExam) {
-            if (startExam) {
-                sebTeacherPanelPassed = YES;
-                [self conditionallyInitSEBWithCallback:callback selector:selector];
-            } else {
-                DDLogInfo(@"Teacher panel: quit selected.");
+        // SEBастьян: если на сервере включён вход по ключу — сначала одноразовый ключ из бота.
+        [[SEBAccessKeyGate sharedGate] runWithCompletion:^(BOOL proceed) {
+            if (!proceed) {
+                DDLogInfo(@"SEBastian access key gate: quit selected.");
                 [self requestedExit:nil];
+                return;
             }
+            [[SEBTeacherPanelController sharedController] showWithCompletion:^(BOOL startExam) {
+                if (startExam) {
+                    sebTeacherPanelPassed = YES;
+                    [self conditionallyInitSEBWithCallback:callback selector:selector];
+                } else {
+                    DDLogInfo(@"Teacher panel: quit selected.");
+                    [self requestedExit:nil];
+                }
+            }];
         }];
         return;
     }

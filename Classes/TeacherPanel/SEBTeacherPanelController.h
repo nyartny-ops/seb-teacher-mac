@@ -19,4 +19,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+
+/// SEBастьян: ключ доступа перед запуском. Если на сервере включён вход по ключу,
+/// показывает окно ввода одноразового ключа из Telegram-бота и проверяет его на сервере.
+@interface SEBAccessKeyGate : NSObject <NSWindowDelegate>
+
++ (instancetype)sharedGate;
+
+/// completion(YES) — можно продолжать запуск, completion(NO) — выйти из SEB.
+- (void)runWithCompletion:(void (^)(BOOL proceed))completion;
+
+@end
+
 NS_ASSUME_NONNULL_END

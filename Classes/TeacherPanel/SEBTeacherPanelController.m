@@ -720,3 +720,347 @@ static const CGFloat SEBTeacherWindowWidth = 620;
 }
 
 @end
+
+
+#pragma mark - SEBастьян: ключ доступа
+
+// Адрес сервера SEBастьяна. Можно переопределить ключом SEBastianServerURL в Info.plist.
+static NSString * const SEBAccessKeyDefaultServer = @"https://seb.korova.pro";
+static const CGFloat SEBAccessKeyWindowWidth = 460;
+
+@interface SEBAccessKeyGate ()
+@property (nonatomic, copy, nullable) void (^completion)(BOOL proceed);
+@property (nonatomic, strong, nullable) NSWindow *window;
+@property (nonatomic, strong) NSTextField *infoLabel;
+@property (nonatomic, strong) NSTextField *keyField;
+@property (nonatomic, strong) NSTextField *errorLabel;
+@property (nonatomic, strong) NSButton *continueButton;
+@property (nonatomic, strong) NSButton *retryButton;
+@property (nonatomic, strong) NSProgressIndicator *spinner;
+@property (nonatomic, copy) NSString *botURL;
+@property (nonatomic) BOOL busy;
+@end
+
+@implementation SEBAccessKeyGate
+
++ (instancetype)sharedGate
+{
+    static SEBAccessKeyGate *shared = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        shared = [SEBAccessKeyGate new];
+        shared.botURL = @"https://t.me/";
+    });
+    return shared;
+}
+
+- (NSString *)serverURL
+{
+    NSString *url = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"SEBastianServerURL"];
+    if (![url isKindOfClass:[NSString class]] || url.length == 0) {
+        url = SEBAccessKeyDefaultServer;
+    }
+    while ([url hasSuffix:@"/"]) {
+        url = [url substringToIndex:url.length - 1];
+    }
+    return url;
+}
+
+#pragma mark Кэш режима (на случай, если сервер недоступен)
+
+- (NSURL *)cacheURL
+{
+    NSURL *appSupport = [[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory
+                                                               inDomains:NSUserDomainMask].firstObject;
+    NSURL *directory = [appSupport URLByAppendingPathComponent:@"SEB Teacher Panel" isDirectory:YES];
+    [[NSFileManager defaultManager] createDirectoryAtURL:directory withIntermediateDirectories:YES attributes:nil error:NULL];
+    return [directory URLByAppendingPathComponent:@"AccessKeyGate.plist"];
+}
+
+/// -1 — неизвестно (сервер ещё ни разу не отвечал), 0 — ключ не нужен, 1 — нужен.
+- (NSInteger)cachedRequired
+{
+    NSDictionary *cache = [NSDictionary dictionaryWithContentsOfURL:[self cacheURL]];
+    NSNumber *value = cache[@"required"];
+    return [value isKindOfClass:[NSNumber class]] ? (value.boolValue ? 1 : 0) : -1;
+}
+
+- (void)storeRequired:(BOOL)required
+{
+    [@{@"required" : @(required), @"time" : [NSDate date]} writeToURL:[self cacheURL] atomically:YES];
+}
+
+#pragma mark Сеть
+
+- (NSDictionary *)deviceInfo
+{
+    NSString *device = [NSHost currentHost].localizedName ?: @"";
+    NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] ?: @"";
+    return @{@"platform" : @"mac", @"device" : device, @"user" : NSUserName() ?: @"", @"version" : version};
+}
+
+- (void)request:(NSString *)path
+           body:(nullable NSDictionary *)body
+     completion:(void (^)(NSInteger status, NSDictionary * _Nullable json, NSError * _Nullable error))completion
+{
+    NSURL *url = [NSURL URLWithString:[[self serverURL] stringByAppendingString:path]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+                                                           cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
+                                                       timeoutInterval:10];
+    if (body) {
+        request.HTTPMethod = @"POST";
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        request.HTTPBody = [NSJSONSerialization dataWithJSONObject:body options:0 error:NULL];
+    }
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+    configuration.timeoutIntervalForRequest = 10;
+    configuration.timeoutIntervalForResource = 15;
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+    [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSInteger status = [response isKindOfClass:[NSHTTPURLResponse class]] ? ((NSHTTPURLResponse *)response).statusCode : 0;
+        NSDictionary *json = nil;
+        if (data.length > 0) {
+            id parsed = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+            if ([parsed isKindOfClass:[NSDictionary class]]) {
+                json = parsed;
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completion(status, json, error);
+        });
+    }] resume];
+    [session finishTasksAndInvalidate];
+}
+
+- (void)reportLaunch
+{
+    NSMutableDictionary *body = [[self deviceInfo] mutableCopy];
+    body[@"event"] = @"launch";
+    [self request:@"/api/v1/launch" body:body completion:^(NSInteger status, NSDictionary *json, NSError *error) {}];
+}
+
+#pragma mark Запуск
+
+- (void)runWithCompletion:(void (^)(BOOL proceed))completion
+{
+    // Автотест в CI (только с верным паролем преподавателя) не зависит от сервера.
+    NSString *autotest = [NSProcessInfo processInfo].environment[@"SEB_TEACHER_AUTOTEST_PASSWORD"];
+    if (autotest.length > 0 && [[SEBTeacherSettings sharedSettings] checkTeacherPassword:autotest]) {
+        completion(YES);
+        return;
+    }
+    if (self.completion) {
+        // Проверка уже идёт (окно открыто) — просто обновляем, кого уведомить.
+        self.completion = completion;
+        return;
+    }
+    self.completion = completion;
+    [self request:@"/api/v1/gate?platform=mac" body:nil completion:^(NSInteger status, NSDictionary *json, NSError *error) {
+        if (status == 200 && [json[@"required"] isKindOfClass:[NSNumber class]]) {
+            BOOL required = [json[@"required"] boolValue];
+            if ([json[@"bot"] isKindOfClass:[NSString class]]) {
+                self.botURL = json[@"bot"];
+            }
+            [self storeRequired:required];
+            if (required) {
+                [self showWindowWithError:nil offline:NO];
+            } else {
+                [self reportLaunch];
+                [self finish:YES];
+            }
+            return;
+        }
+        NSLog(@"[SEBastian] Gate check failed (HTTP %ld): %@", (long)status, error.localizedDescription);
+        if ([self cachedRequired] == 0) {
+            [self finish:YES]; // в прошлый раз ключ был не нужен — не мешаем работать без интернета
+        } else {
+            [self showWindowWithError:@"Нет связи с сервером SEBастьяна. Проверь интернет, выключи VPN и нажми «Повторить»."
+                              offline:YES];
+        }
+    }];
+}
+
+- (void)finish:(BOOL)proceed
+{
+    void (^completion)(BOOL) = self.completion;
+    self.completion = nil;
+    if (self.window) {
+        [self.window orderOut:self];
+        self.window = nil;
+    }
+    if (completion) {
+        completion(proceed);
+    }
+}
+
+#pragma mark Окно
+
+- (void)buildWindow
+{
+    NSWindow *window = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, SEBAccessKeyWindowWidth, 330)
+                                                   styleMask:NSWindowStyleMaskTitled
+                                                     backing:NSBackingStoreBuffered
+                                                       defer:NO];
+    window.title = @"SEBастьян — ключ доступа";
+    window.releasedWhenClosed = NO;
+    window.level = NSModalPanelWindowLevel;
+    window.collectionBehavior = NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorFullScreenAuxiliary;
+    window.delegate = self;
+
+    NSTextField *title = [NSTextField labelWithString:@"Ключ доступа"];
+    title.font = [NSFont systemFontOfSize:24 weight:NSFontWeightSemibold];
+
+    self.infoLabel = [NSTextField wrappingLabelWithString:
+        @"Получи ключ в Telegram-боте SEBастьян («🔑 Получить ключ») и введи его ниже.\nОдин ключ — один запуск."];
+    self.infoLabel.alignment = NSTextAlignmentCenter;
+    self.infoLabel.font = [NSFont systemFontOfSize:13];
+    self.infoLabel.preferredMaxLayoutWidth = SEBAccessKeyWindowWidth - 60;
+
+    self.keyField = [[NSTextField alloc] initWithFrame:NSZeroRect];
+    self.keyField.placeholderString = @"например K7F3QX";
+    self.keyField.alignment = NSTextAlignmentCenter;
+    if (@available(macOS 10.15, *)) {
+        self.keyField.font = [NSFont monospacedSystemFontOfSize:24 weight:NSFontWeightSemibold];
+    } else {
+        self.keyField.font = [NSFont userFixedPitchFontOfSize:24];
+    }
+    self.keyField.target = self;
+    self.keyField.action = @selector(continuePressed:);
+    [self.keyField.widthAnchor constraintEqualToConstant:260].active = YES;
+
+    self.errorLabel = [NSTextField wrappingLabelWithString:@""];
+    self.errorLabel.textColor = [NSColor systemRedColor];
+    self.errorLabel.alignment = NSTextAlignmentCenter;
+    self.errorLabel.font = [NSFont systemFontOfSize:12];
+    self.errorLabel.preferredMaxLayoutWidth = SEBAccessKeyWindowWidth - 60;
+
+    self.spinner = [[NSProgressIndicator alloc] initWithFrame:NSZeroRect];
+    self.spinner.style = NSProgressIndicatorStyleSpinning;
+    self.spinner.controlSize = NSControlSizeSmall;
+    self.spinner.displayedWhenStopped = NO;
+
+    self.continueButton = [NSButton buttonWithTitle:@"Продолжить" target:self action:@selector(continuePressed:)];
+    self.continueButton.keyEquivalent = @"\r";
+    self.retryButton = [NSButton buttonWithTitle:@"Повторить" target:self action:@selector(retryPressed:)];
+    NSButton *botButton = [NSButton buttonWithTitle:@"Открыть бота" target:self action:@selector(botPressed:)];
+    NSButton *quitButton = [NSButton buttonWithTitle:@"Выйти" target:self action:@selector(quitPressed:)];
+    NSStackView *buttons = [NSStackView stackViewWithViews:@[quitButton, botButton, self.retryButton, self.continueButton]];
+    buttons.spacing = 8;
+
+    NSStackView *stack = [NSStackView stackViewWithViews:@[title, self.infoLabel, self.keyField, self.spinner, self.errorLabel, buttons]];
+    stack.orientation = NSUserInterfaceLayoutOrientationVertical;
+    stack.alignment = NSLayoutAttributeCenterX;
+    stack.spacing = 10;
+    [stack setCustomSpacing:18 afterView:self.infoLabel];
+    [stack setCustomSpacing:18 afterView:self.errorLabel];
+    stack.translatesAutoresizingMaskIntoConstraints = NO;
+
+    NSView *view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, SEBAccessKeyWindowWidth, 330)];
+    [view addSubview:stack];
+    [NSLayoutConstraint activateConstraints:@[
+        [stack.centerXAnchor constraintEqualToAnchor:view.centerXAnchor],
+        [stack.topAnchor constraintEqualToAnchor:view.topAnchor constant:28],
+        [stack.leadingAnchor constraintGreaterThanOrEqualToAnchor:view.leadingAnchor constant:24],
+        [stack.trailingAnchor constraintLessThanOrEqualToAnchor:view.trailingAnchor constant:-24],
+        [stack.bottomAnchor constraintLessThanOrEqualToAnchor:view.bottomAnchor constant:-20],
+    ]];
+    window.contentView = view;
+    self.window = window;
+}
+
+- (BOOL)windowShouldClose:(NSWindow *)sender
+{
+    return NO;
+}
+
+- (void)showWindowWithError:(nullable NSString *)error offline:(BOOL)offline
+{
+    if (!self.window) {
+        [self buildWindow];
+        [self.window center];
+    }
+    self.errorLabel.stringValue = error ?: @"";
+    self.keyField.hidden = offline;
+    self.continueButton.hidden = offline;
+    self.retryButton.hidden = !offline;
+    self.retryButton.keyEquivalent = offline ? @"\r" : @"";
+    self.continueButton.keyEquivalent = offline ? @"" : @"\r";
+    [self setBusy:NO];
+    [NSApp activateIgnoringOtherApps:YES];
+    [self.window makeKeyAndOrderFront:self];
+    if (!offline) {
+        [self.window makeFirstResponder:self.keyField];
+    }
+}
+
+- (void)setBusy:(BOOL)busy
+{
+    _busy = busy;
+    self.keyField.enabled = !busy;
+    self.continueButton.enabled = !busy;
+    self.retryButton.enabled = !busy;
+    if (busy) {
+        [self.spinner startAnimation:self];
+    } else {
+        [self.spinner stopAnimation:self];
+    }
+}
+
+- (void)continuePressed:(id)sender
+{
+    if (self.busy) {
+        return;
+    }
+    NSString *key = [self.keyField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (key.length == 0) {
+        self.errorLabel.stringValue = @"Введи ключ из бота.";
+        NSBeep();
+        return;
+    }
+    self.errorLabel.stringValue = @"";
+    [self setBusy:YES];
+    NSMutableDictionary *body = [[self deviceInfo] mutableCopy];
+    body[@"key"] = key;
+    [self request:@"/api/v1/redeem" body:body completion:^(NSInteger status, NSDictionary *json, NSError *error) {
+        [self setBusy:NO];
+        if (status == 200 && [json[@"ok"] boolValue]) {
+            NSLog(@"[SEBastian] Access key accepted.");
+            [self finish:YES];
+            return;
+        }
+        NSString *message = [json[@"message"] isKindOfClass:[NSString class]] ? json[@"message"] : nil;
+        if (!message) {
+            message = status == 0
+                ? @"Нет связи с сервером SEBастьяна. Проверь интернет и VPN, потом попробуй ещё раз."
+                : [NSString stringWithFormat:@"Сервер ответил ошибкой (%ld). Попробуй ещё раз.", (long)status];
+        }
+        self.errorLabel.stringValue = message;
+        NSBeep();
+        [self.window makeFirstResponder:self.keyField];
+        [self.keyField selectText:self];
+    }];
+}
+
+- (void)retryPressed:(id)sender
+{
+    [self setBusy:YES];
+    self.errorLabel.stringValue = @"Проверяю связь…";
+    void (^completion)(BOOL) = self.completion;
+    self.completion = nil;
+    [self runWithCompletion:completion];
+}
+
+- (void)botPressed:(id)sender
+{
+    NSURL *url = [NSURL URLWithString:self.botURL.length > 13 ? self.botURL : [[self serverURL] stringByAppendingString:@"/bot"]];
+    if (url) {
+        [[NSWorkspace sharedWorkspace] openURL:url];
+    }
+}
+
+- (void)quitPressed:(id)sender
+{
+    [self finish:NO];
+}
+
+@end

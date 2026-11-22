@@ -6,7 +6,7 @@
 #     cd путь/к/seb-mac-main
 #     bash scripts/build-teacher-dmg.sh
 #
-# Результат: build/SEB-Teacher.dmg
+# Результат: build/SEBastian-mac.dmg
 #
 # Без переменных окружения приложение подписывается «ad-hoc» (без
 # сертификата Apple) — его можно запускать на своих Mac, но при первом
@@ -23,8 +23,8 @@ cd "$(dirname "$0")/.."
 ROOT="$(pwd)"
 BUILD_DIR="$ROOT/build"
 APP_NAME="Safe Exam Browser"
-DMG_NAME="${DMG_NAME:-SEB-Teacher}"
-VOLUME_NAME="${VOLUME_NAME:-SEB Teacher}"
+DMG_NAME="${DMG_NAME:-SEBastian-mac}"
+VOLUME_NAME="${VOLUME_NAME:-SEBастьян}"
 SIGN_IDENTITY="${SIGN_IDENTITY:-}"
 NOTARY_PROFILE="${NOTARY_PROFILE:-}"
 
@@ -89,15 +89,40 @@ fi
 codesign --verify --deep --strict "$APP_PATH"
 
 echo "==> Создание DMG"
-STAGE="$BUILD_DIR/dmg"
-rm -rf "$STAGE"
-mkdir -p "$STAGE"
-cp -R "$APP_PATH" "$STAGE/"
-ln -s /Applications "$STAGE/Applications"
-cp "$ROOT/scripts/teacher-install-readme.txt" "$STAGE/Как установить.txt"
-
 DMG_PATH="$BUILD_DIR/$DMG_NAME.dmg"
-hdiutil create -volname "$VOLUME_NAME" -srcfolder "$STAGE" -ov -format UDZO "$DMG_PATH"
+rm -f "$DMG_PATH"
+
+# Фон окна установщика: обычный + Retina в одном .tiff
+DMG_BG=""
+if [ -f "$ROOT/scripts/dmg/background.png" ]; then
+    if [ -f "$ROOT/scripts/dmg/background@2x.png" ] && command -v tiffutil >/dev/null; then
+        tiffutil -cathidpicheck "$ROOT/scripts/dmg/background.png" "$ROOT/scripts/dmg/background@2x.png" \
+            -out "$BUILD_DIR/dmg-background.tiff" >/dev/null 2>&1 && DMG_BG="$BUILD_DIR/dmg-background.tiff"
+    fi
+    [ -z "$DMG_BG" ] && DMG_BG="$ROOT/scripts/dmg/background.png"
+fi
+
+# Красивое окно делает dmgbuild (pip install dmgbuild). Если его нет — простой DMG.
+DMGBUILD=""
+if command -v dmgbuild >/dev/null; then
+    DMGBUILD="dmgbuild"
+elif python3 -c "import dmgbuild" >/dev/null 2>&1; then
+    DMGBUILD="python3 -m dmgbuild"
+fi
+
+if [ -n "$DMGBUILD" ] && [ -n "$DMG_BG" ] && \
+   $DMGBUILD -s "$ROOT/scripts/dmg/settings.py" -D app="$APP_PATH" -D background="$DMG_BG" "$VOLUME_NAME" "$DMG_PATH"; then
+    echo "==> DMG с оформлением собран (dmgbuild)"
+else
+    echo "==> dmgbuild недоступен — собираю простой DMG"
+    STAGE="$BUILD_DIR/dmg"
+    rm -rf "$STAGE"
+    mkdir -p "$STAGE"
+    cp -R "$APP_PATH" "$STAGE/"
+    ln -s /Applications "$STAGE/Applications"
+    cp "$ROOT/scripts/teacher-install-readme.txt" "$STAGE/Как установить.txt"
+    hdiutil create -volname "$VOLUME_NAME" -srcfolder "$STAGE" -ov -format UDZO "$DMG_PATH"
+fi
 
 if [ -n "$SIGN_IDENTITY" ]; then
     codesign --force --sign "$SIGN_IDENTITY" "$DMG_PATH"

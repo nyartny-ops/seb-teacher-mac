@@ -2,9 +2,9 @@ name: Build SEB Teacher (macOS)
 
 # Собирает .dmg-установщик на облачном Mac GitHub.
 # Запуск: вкладка Actions → «Build SEB Teacher (macOS)» → Run workflow,
-# или автоматически при каждом push в main. Готовый SEB-Teacher.dmg —
-# в разделе Artifacts внизу страницы запуска. При push тега вида v1.0
-# дополнительно создаётся Release с этим файлом.
+# или автоматически при каждом push в main. Готовый SEBastian-mac.dmg —
+# в разделе Artifacts внизу страницы запуска, а также в Releases (оттуда его
+# раздаёт сайт SEBастьяна).
 
 on:
   workflow_dispatch:
@@ -60,6 +60,13 @@ jobs:
             echo "NOTARY_PROFILE=seb-notary" >> "$GITHUB_ENV"
           fi
           echo "SIGN_IDENTITY=${{ secrets.MACOS_SIGN_IDENTITY }}" >> "$GITHUB_ENV"
+
+      # dmgbuild рисует красивое окно установщика (фон, стрелка, расположение иконок)
+      - name: Install dmgbuild
+        run: |
+          python3 -m venv "$RUNNER_TEMP/dmgvenv"
+          "$RUNNER_TEMP/dmgvenv/bin/pip" install --quiet dmgbuild
+          echo "$RUNNER_TEMP/dmgvenv/bin" >> "$GITHUB_PATH"
 
       - name: Build DMG
         run: bash scripts/build-teacher-dmg.sh
@@ -128,8 +135,8 @@ jobs:
       - name: Upload DMG
         uses: actions/upload-artifact@v4
         with:
-          name: SEB-Teacher-dmg
-          path: build/SEB-Teacher.dmg
+          name: SEBastian-mac-dmg
+          path: build/SEBastian-mac.dmg
           if-no-files-found: error
 
       # Копия .dmg в ветке dist — её удобно скачивать через git, если загрузка
@@ -138,18 +145,26 @@ jobs:
         if: always() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
         run: |
           mkdir -p "$RUNNER_TEMP/dist/test"
-          cp build/SEB-Teacher.dmg "$RUNNER_TEMP/dist/" 2>/dev/null || true
+          cp build/SEBastian-mac.dmg "$RUNNER_TEMP/dist/" 2>/dev/null || true
           cp -R build/test/. "$RUNNER_TEMP/dist/test/" 2>/dev/null || true
           cp build/xcodebuild.log "$RUNNER_TEMP/dist/test/" 2>/dev/null || true
           cd "$RUNNER_TEMP/dist"
           git init -q
           git checkout -q -b dist
           git add -A
-          git -c user.name="github-actions" -c user.email="github-actions@users.noreply.github.com" commit -qm "SEB-Teacher.dmg from ${GITHUB_SHA::7}"
+          git -c user.name="github-actions" -c user.email="github-actions@users.noreply.github.com" commit -qm "SEBastian-mac.dmg from ${GITHUB_SHA::7}"
           git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" dist
 
-      - name: Publish release (tags only)
-        if: startsWith(github.ref, 'refs/tags/v')
+      # Каждая успешная сборка из main становится релизом — сайт SEBастьяна
+      # отдаёт студентам файл из последнего релиза (releases/latest).
+      - name: Publish release
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
-          files: build/SEB-Teacher.dmg
+          tag_name: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || format('mac-build-{0}', github.run_number) }}
+          name: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || format('SEBастьян для Mac · сборка {0}', github.run_number) }}
+          body: |
+            Safe Exam Browser с панелью преподавателя и ключом доступа SEBастьяна.
+            ⚠ Бета-версия — используйте на свой страх и риск.
+          make_latest: true
+          files: build/SEBastian-mac.dmg
