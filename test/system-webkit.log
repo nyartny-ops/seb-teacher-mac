@@ -1,0 +1,140 @@
+2026-11-22 13:14:09.483 Df Safe Exam Browser[6494:5413] [com.apple.AppKit:AutomaticTermination] void _NSDisableAutomaticTerminationAndLog(NSString *) No windows open yet
+2026-11-22 13:14:09.530 Df Safe Exam Browser[6494:5413] (libMobileGestalt.dylib) Failed to copy the SysCfgDict MG key with error: 0
+2026-11-22 13:14:11.561 Df Safe Exam Browser[6494:5413] [com.apple.AppKit:AutomaticTermination] void _NSDisableAutomaticTerminationAndLog(NSString *) Restoring windows
+2026-11-22 13:14:11.563 Df Safe Exam Browser[6494:5413] [com.apple.AppKit:AutomaticTermination] void _NSEnableAutomaticTerminationAndLog(NSString *) Restoring windows
+2026-11-22 13:14:11.760 Df Safe Exam Browser[6494:5413] [com.apple.AppKit:AutomaticTermination] void _NSEnableAutomaticTerminationAndLog(NSString *) No windows open yet
+2026-11-22 13:14:11.953 E  Safe Exam Browser[6494:5413] [com.apple.WebKit:ResourceLoadStatistics] Failed to request storage access quirks from WebPrivacy.
+2026-11-22 13:14:11.953 E  Safe Exam Browser[6494:5413] [com.apple.WebKit:ResourceLoadStatistics] Failed to request storage access user agent string quirks from WebPrivacy.
+2026-11-22 13:14:11.954 Df Safe Exam Browser[6494:5442] [com.apple.xpc:connection] [0x600000655d10] failed to do a bootstrap look-up: xpc_error=[3: No such process]
+2026-11-22 13:14:11.954 Df Safe Exam Browser[6494:5442] [com.apple.xpc:connection] [0x600000655d10] invalidated after a failed init
+2026-11-22 13:14:11.966 Df com.apple.WebKit.GPU[6640:5580] [com.apple.xpc:connection] [0x7f855ff07680] failed to do a bootstrap look-up: xpc_error=[159: Unknown error: 159]
+2026-11-22 13:14:11.966 Df com.apple.WebKit.GPU[6640:5580] [com.apple.xpc:connection] [0x7f855ff07680] invalidated after a failed init
+2026-11-22 13:14:11.968 Df com.apple.WebKit.GPU[6640:5580] [com.apple.xpc:connection] [0x7f855ff0d140] failed to do a bootstrap look-up: xpc_error=[159: Unknown error: 159]
+2026-11-22 13:14:11.968 Df com.apple.WebKit.GPU[6640:5580] [com.apple.xpc:connection] [0x7f855ff0d140] invalidated after a failed init
+2026-11-22 13:14:11.968 Df com.apple.WebKit.GPU[6640:5580] [com.apple.xpc:connection] [0x7f8560904170] failed to do a bootstrap look-up: xpc_error=[159: Unknown error: 159]
+2026-11-22 13:14:11.968 Df com.apple.WebKit.GPU[6640:5580] [com.apple.xpc:connection] [0x7f8560904170] invalidated after a failed init
+2026-11-22 13:14:11.968 E  com.apple.WebKit.GPU[6640:5580] [com.apple.TCC:access] send_message_with_reply_sync(): XPC_ERROR_CONNECTION_INVALID for message 0x7f855ff0cf70
+2026-11-22 13:14:11.993 F  com.apple.WebKit.GPU[6640:5580] [com.apple.CarbonCore:sharedcache] checkinWithServer Failed bootstrap_lookup2 for name of coreservicesd, kern_return_t=#1100/0x44c Permission denied name=com.apple.CoreServices.coreservicesd
+2026-11-22 13:14:12.079 Df com.apple.WebKit.Networking[6646:55bf] [com.apple.xpc:connection] [0x7f918ba0aaf0] failed to do a bootstrap look-up: xpc_error=[159: Unknown error: 159]
+2026-11-22 13:14:12.079 Df com.apple.WebKit.Networking[6646:55bf] [com.apple.xpc:connection] [0x7f918ba0aaf0] invalidated after a failed init
+2026-11-22 13:14:12.081 Df com.apple.WebKit.Networking[6646:55bf] [com.apple.xpc:connection] [0x7f918b808ba0] failed to do a bootstrap look-up: xpc_error=[159: Unknown error: 159]
+2026-11-22 13:14:12.081 Df com.apple.WebKit.Networking[6646:55bf] [com.apple.xpc:connection] [0x7f918b808ba0] invalidated after a failed init
+2026-11-22 13:14:12.081 Df com.apple.WebKit.Networking[6646:55bf] [com.apple.xpc:connection] [0x7f918af15970] failed to do a bootstrap look-up: xpc_error=[159: Unknown error: 159]
+2026-11-22 13:14:12.081 Df com.apple.WebKit.Networking[6646:55bf] [com.apple.xpc:connection] [0x7f918af15970] invalidated after a failed init
+2026-11-22 13:14:12.081 E  com.apple.WebKit.Networking[6646:55bf] [com.apple.TCC:access] send_message_with_reply_sync(): XPC_ERROR_CONNECTION_INVALID for message 0x7f918b808990
+2026-11-22 13:14:12.094 Df com.apple.WebKit.Networking[6646:55cd] [com.apple.xpc:connection] [0x7f918b811310] failed to do a bootstrap look-up: xpc_error=[159: Unknown error: 159]
+2026-11-22 13:14:12.094 Df com.apple.WebKit.Networking[6646:55cd] [com.apple.xpc:connection] [0x7f918b811310] invalidated after a failed init
+2026-11-22 13:14:12.101 Df com.apple.WebKit.Networking[6646:55ca] [com.apple.xpc:connection] [0x7f918ba0c870] failed to do a bootstrap look-up: xpc_error=[159: Unknown error: 159]
+2026-11-22 13:14:12.101 Df com.apple.WebKit.Networking[6646:55ca] [com.apple.xpc:connection] [0x7f918ba0c870] invalidated after a failed init
+2026-11-22 13:14:12.101 Df com.apple.WebKit.Networking[6646:55ca] [com.apple.xpc:connection] [0x7f918ba0c870] failed to do a bootstrap look-up: xpc_error=[159: Unknown error: 159]
+2026-11-22 13:14:12.101 Df com.apple.WebKit.Networking[6646:55ca] [com.apple.xpc:connection] [0x7f918ba0c870] invalidated after a failed init
+2026-11-22 13:14:12.158 Df com.apple.WebKit.WebContent[6642:558c] [com.apple.xpc:connection] [0x7fcd7da0cc20] failed to do a bootstrap look-up: xpc_error=[159: Unknown error: 159]
+2026-11-22 13:14:12.158 Df com.apple.WebKit.WebContent[6642:558c] [com.apple.xpc:connection] [0x7fcd7da0cc20] invalidated after a failed init
+2026-11-22 13:14:12.158 E  com.apple.WebKit.WebContent[6642:5591] [com.apple.CFPasteboard:general] Connection to 'pboard' server had an error: <dictionary: 0x7ff848766f10> { count = 1, transaction: 0, voucher = 0x0, contents =
+	"XPCErrorDescription" => <string: 0x7ff8487670a8> { length = 18, contents = "Connection invalid" }
+Invalidation reason: failed at lookup with error 159 - Sandbox restriction
+2026-11-22 13:14:12.158 E  com.apple.WebKit.WebContent[6642:558c] [com.apple.CFPasteboard:general] Failed to set up CFPasteboardRef 'Apple CFPasteboard general'. Error: <dictionary: 0x7ff848766f10> { count = 1, transaction: 0, voucher = 0x0, contents =
+	"XPCErrorDescription" => <string: 0x7ff8487670a8> { length = 18, contents = "Connection invalid" }
+Invalidation reason: failed at lookup with error 159 - Sandbox restriction
+2026-11-22 13:14:12.158 E  com.apple.WebKit.WebContent[6642:558c] [com.apple.CFPasteboard:general] Failed to set up CFPasteboardRef 'Apple CFPasteboard general'. Error: <dictionary: 0x7ff848766f10> { count = 1, transaction: 0, voucher = 0x0, contents =
+	"XPCErrorDescription" => <string: 0x7ff8487670a8> { length = 18, contents = "Connection invalid" }
+Invalidation reason: failed at lookup with error 159 - Sandbox restriction
+2026-11-22 13:14:12.166 Df com.apple.WebKit.WebContent[6642:558c] [com.apple.xpc:connection] [0x7fcd7da0e080] failed to do a bootstrap look-up: xpc_error=[159: Unknown error: 159]
+2026-11-22 13:14:12.166 Df com.apple.WebKit.WebContent[6642:558c] [com.apple.xpc:connection] [0x7fcd7da0e080] invalidated after a failed init
+2026-11-22 13:14:12.167 Df com.apple.WebKit.WebContent[6642:558c] [com.apple.xpc:connection] [0x7fcd7da0e450] failed to do a bootstrap look-up: xpc_error=[159: Unknown error: 159]
+2026-11-22 13:14:12.167 Df com.apple.WebKit.WebContent[6642:558c] [com.apple.xpc:connection] [0x7fcd7da0e450] invalidated after a failed init
+2026-11-22 13:14:12.168 Df com.apple.WebKit.WebContent[6642:558c] [com.apple.xpc:connection] [0x7fcd7d80fd10] failed to do a bootstrap look-up: xpc_error=[159: Unknown error: 159]
+2026-11-22 13:14:12.168 Df com.apple.WebKit.WebContent[6642:558c] [com.apple.xpc:connection] [0x7fcd7d80fd10] invalidated after a failed init
+2026-11-22 13:14:12.168 E  com.apple.WebKit.WebContent[6642:558c] [com.apple.TCC:access] send_message_with_reply_sync(): XPC_ERROR_CONNECTION_INVALID for message 0x7fcd7da0e280
+2026-11-22 13:14:12.290 Df com.apple.WebKit.WebContent[6642:558c] (libMobileGestalt.dylib) Failed to copy the SysCfgDict MG key with error: 0
+2026-11-22 13:14:12.342 E  Safe Exam Browser[6494:5413] [com.apple.os_debug_log:] assertion failed: 24G830: libxpc.dylib + 87364 [FE3548E0-ECF4-389B-86AB-F652E03D96C4]: 0x87
+2026-11-22 13:14:12.401 Df com.apple.WebKit.WebContent[6642:558c] [com.apple.AppKit:AutomaticTermination] void _NSDisableAutomaticTerminationAndLog(NSString *) No windows open yet
+2026-11-22 13:14:12.401 Df com.apple.WebKit.WebContent[6642:558c] [com.apple.xpc:connection] [0x7fcd7cf39300] failed to do a bootstrap look-up: xpc_error=[159: Unknown error: 159]
+2026-11-22 13:14:12.401 Df com.apple.WebKit.WebContent[6642:558c] [com.apple.xpc:connection] [0x7fcd7cf39300] invalidated after a failed init
+2026-11-22 13:14:12.401 Df com.apple.WebKit.WebContent[6642:558c] [com.apple.SkyLight:default] Set a breakpoint at SLSLogBreak to catch errors/faults as they are logged.
+2026-11-22 13:14:12.403 F  com.apple.WebKit.WebContent[6642:558c] [com.apple.CarbonCore:sharedcache] checkinWithServer Failed bootstrap_lookup2 for name of coreservicesd, kern_return_t=#1100/0x44c Permission denied name=com.apple.CoreServices.coreservicesd
+2026-11-22 13:14:12.403 E  com.apple.WebKit.WebContent[6642:558c] [com.apple.CarbonCore:FileIDMap] FSNode_SetFSSharedDeviceInfo failed to fetch IOKit properties for <private>
+2026-11-22 13:14:12.403 E  com.apple.WebKit.WebContent[6642:558c] [com.apple.CarbonCore:FileIDMap] FSNode_SetFSSharedDeviceInfo failed to fetch IOKit properties for <private>
+2026-11-22 13:14:12.428 Df com.apple.WebKit.WebContent[6642:558c] [com.apple.xpc:connection] [0x7fcd7d816de0] failed to do a bootstrap look-up: xpc_error=[159: Unknown error: 159]
+2026-11-22 13:14:12.428 Df com.apple.WebKit.WebContent[6642:558c] [com.apple.xpc:connection] [0x7fcd7d816de0] invalidated after a failed init
+2026-11-22 13:14:12.428 E  com.apple.WebKit.WebContent[6642:558c] [com.apple.coreaudio:audiocomp] AudioComponentPluginMgr.mm:590   reg server remote proxy error Error Domain=NSCocoaErrorDomain Code=4099 "The connection to service named com.apple.audio.AudioComponentRegistrar was invalidated: failed at lookup with error 159 - Sandbox restriction." UserInfo={NSDebugDescription=The connection to service named com.apple.audio.AudioComponentRegistrar was invalidated: failed at lookup with error 159 - Sandbox restriction.}
+2026-11-22 13:14:12.430 Df Safe Exam Browser[6494:5413] [com.apple.WebKit:Process] 0x10e002d00 - [PID=6642] WebProcessProxy::canTerminateAuxiliaryProcess: returns false (pageCount=0, provisionalPageCount=0, suspendedPageCount=0, m_isInProcessCache=0, m_shutdownPreventingScopeCounter=1)
+2026-11-22 13:14:12.431 Df com.apple.WebKit.WebContent[6642:558c] [com.apple.xpc:connection] [0x7fcd7da62630] activating connection: mach=false listener=false peer=false name=com.apple.audio.SandboxHelper
+2026-11-22 13:14:12.431 Df com.apple.WebKit.WebContent[6642:558c] [com.apple.xpc:connection] [0x7fcd7da62630] failed to do a bootstrap look-up: xpc_error=[159: Unknown error: 159]
+2026-11-22 13:14:12.431 Df com.apple.WebKit.WebContent[6642:558c] [com.apple.xpc:connection] [0x7fcd7da62630] invalidated after a failed init
+2026-11-22 13:14:12.431 Df com.apple.WebKit.WebContent[6642:558c] (AudioToolboxCore)   SandboxHelperClient.cpp:120    IsComponentSandboxSafeInThisProcess: the XPC service was invalid
+2026-11-22 13:14:12.431 Df com.apple.WebKit.WebContent[6642:558c] (AudioToolboxCore)   SandboxHelperClient.cpp:120    IsComponentSandboxSafeInThisProcess: the XPC service was invalid
+2026-11-22 13:14:12.433 Df Safe Exam Browser[6494:5413] [com.apple.WebKit:Process] 0x10e002d00 - [PID=6642] WebProcessProxy::canTerminateAuxiliaryProcess: returns true
+2026-11-22 13:14:12.433 Df Safe Exam Browser[6494:5425] [com.apple.WebKit:ProcessSuspension] 0x10e009e60 - ProcessAssertion::acquireSync Trying to take RBS assertion 'XPCConnectionTerminationWatchdog' for process with PID=6642
+2026-11-22 13:14:12.435 Df Safe Exam Browser[6494:5419] [com.apple.xpc:connection] [0x600000663930] Re-initialization successful; calling out to event handler with XPC_ERROR_CONNECTION_INTERRUPTED
+2026-11-22 13:14:12.435 Df Safe Exam Browser[6494:5425] [com.apple.WebKit:ProcessSuspension] 0x10e009e60 - ProcessAssertion::acquireSync Successfully took RBS assertion 'XPCConnectionTerminationWatchdog' for process with PID=6642
+2026-11-22 13:14:12.437 E  Safe Exam Browser[6494:5425] [com.apple.runningboard:assertion] Error acquiring assertion: <Error Domain=RBSServiceErrorDomain Code=1 "(target is not running or doesn't have entitlement com.apple.runningboard.assertions.webkit AND originator doesn't have entitlement com.apple.runningboard.assertions.webkit)" UserInfo={NSLocalizedFailureReason=(target is not running or doesn't have entitlement com.apple.runningboard.assertions.webkit AND originator doesn't have entitlement com.apple.runningboard.assertions.webkit)}>
+2026-11-22 13:14:12.437 E  Safe Exam Browser[6494:5425] [com.apple.WebKit:ProcessSuspension] 0x10e009ec0 - ProcessAssertion::acquireSync Failed to acquire RBS assertion 'WebProcess NearSuspended Assertion' for process with PID=6642, error: Error Domain=RBSServiceErrorDomain Code=1 "(target is not running or doesn't have entitlement com.apple.runningboard.assertions.webkit AND originator doesn't have entitlement com.apple.runningboard.assertions.webkit)" UserInfo={NSLocalizedFailureReason=(target is not running or doesn't have entitlement com.apple.runningboard.assertions.webkit AND originator doesn't have entitlement com.apple.runningboard.assertions.webkit)}
+2026-11-22 13:14:12.437 Df Safe Exam Browser[6494:558d] [com.apple.WebKit:ProcessSuspension] 0x6000039d3220 - WKRBSAssertionDelegate: assertion was invalidated, error: Error Domain=RBSAssertionErrorDomain Code=1 "Assertions were invalidated" UserInfo={NSLocalizedFailureReason=Assertions were invalidated}
+2026-11-22 13:14:14.688 Df Safe Exam Browser[6494:5413] [com.apple.AppKit:AutomaticTermination] void _updateToReflectAutomaticTerminationState(void) Setting _kLSApplicationWouldBeTerminatedByTALKey=0
+2026-11-22 13:14:26.517 E  com.apple.WebKit.Networking[6646:55ca] [com.apple.runningboard:connection] The sandbox in this process does not allow access to RunningBoard.
+2026-11-22 13:14:26.517 E  com.apple.WebKit.Networking[6646:5829] [com.apple.runningboard:connection] The sandbox in this process does not allow access to RunningBoard.
+2026-11-22 13:14:26.518 E  com.apple.WebKit.Networking[6646:55ca] [com.apple.runningboard:assertion] Error acquiring assertion: <Error Domain=NSCocoaErrorDomain Code=4099 "Couldn’t communicate with a helper application." UserInfo={NSLocalizedFailureReason=The connection does not exist}>
+2026-11-22 13:14:26.518 E  com.apple.WebKit.Networking[6646:55ca] (CFNetwork) Failed to acquire assertion: Error Domain=NSCocoaErrorDomain Code=4099 UserInfo={NSLocalizedFailureReason=The connection does not exist}
+2026-11-22 13:14:26.518 E  com.apple.WebKit.Networking[6646:55ca] (CFNetwork) Unhandled assertion acquisition failure, bailing out
+2026-11-22 13:14:26.525 E  com.apple.WebKit.Networking[6646:5829] [com.apple.runningboard:assertion] Error acquiring assertion: <Error Domain=NSCocoaErrorDomain Code=4099 "Couldn’t communicate with a helper application." UserInfo={NSLocalizedFailureReason=The connection does not exist}>
+2026-11-22 13:14:26.525 E  com.apple.WebKit.Networking[6646:5829] (CFNetwork) Failed to acquire assertion: Error Domain=NSCocoaErrorDomain Code=4099 UserInfo={NSLocalizedFailureReason=The connection does not exist}
+2026-11-22 13:14:26.525 E  com.apple.WebKit.Networking[6646:5829] (CFNetwork) Unhandled assertion acquisition failure, bailing out
+2026-11-22 13:14:26.697 Df com.apple.WebKit.WebContent[6880:582a] [com.apple.xpc:connection] [0x7fb7e181b4c0] failed to do a bootstrap look-up: xpc_error=[159: Unknown error: 159]
+2026-11-22 13:14:26.697 Df com.apple.WebKit.WebContent[6880:582a] [com.apple.xpc:connection] [0x7fb7e181b4c0] invalidated after a failed init
+2026-11-22 13:14:26.697 E  com.apple.WebKit.WebContent[6880:582c] [com.apple.CFPasteboard:general] Connection to 'pboard' server had an error: <dictionary: 0x7ff848766f10> { count = 1, transaction: 0, voucher = 0x0, contents =
+	"XPCErrorDescription" => <string: 0x7ff8487670a8> { length = 18, contents = "Connection invalid" }
+Invalidation reason: failed at lookup with error 159 - Sandbox restriction
+2026-11-22 13:14:26.697 E  com.apple.WebKit.WebContent[6880:582a] [com.apple.CFPasteboard:general] Failed to set up CFPasteboardRef 'Apple CFPasteboard general'. Error: <dictionary: 0x7ff848766f10> { count = 1, transaction: 0, voucher = 0x0, contents =
+	"XPCErrorDescription" => <string: 0x7ff8487670a8> { length = 18, contents = "Connection invalid" }
+Invalidation reason: failed at lookup with error 159 - Sandbox restriction
+2026-11-22 13:14:26.697 E  com.apple.WebKit.WebContent[6880:582a] [com.apple.CFPasteboard:general] Failed to set up CFPasteboardRef 'Apple CFPasteboard general'. Error: <dictionary: 0x7ff848766f10> { count = 1, transaction: 0, voucher = 0x0, contents =
+	"XPCErrorDescription" => <string: 0x7ff8487670a8> { length = 18, contents = "Connection invalid" }
+Invalidation reason: failed at lookup with error 159 - Sandbox restriction
+2026-11-22 13:14:26.705 Df com.apple.WebKit.WebContent[6880:582a] [com.apple.xpc:connection] [0x7fb7e181a8b0] failed to do a bootstrap look-up: xpc_error=[159: Unknown error: 159]
+2026-11-22 13:14:26.705 Df com.apple.WebKit.WebContent[6880:582a] [com.apple.xpc:connection] [0x7fb7e181a8b0] invalidated after a failed init
+2026-11-22 13:14:26.706 Df com.apple.WebKit.WebContent[6880:582a] [com.apple.xpc:connection] [0x7fb7e0f0d420] failed to do a bootstrap look-up: xpc_error=[159: Unknown error: 159]
+2026-11-22 13:14:26.706 Df com.apple.WebKit.WebContent[6880:582a] [com.apple.xpc:connection] [0x7fb7e0f0d420] invalidated after a failed init
+2026-11-22 13:14:26.707 Df com.apple.WebKit.WebContent[6880:582a] [com.apple.xpc:connection] [0x7fb7e181bd70] failed to do a bootstrap look-up: xpc_error=[159: Unknown error: 159]
+2026-11-22 13:14:26.707 Df com.apple.WebKit.WebContent[6880:582a] [com.apple.xpc:connection] [0x7fb7e181bd70] invalidated after a failed init
+2026-11-22 13:14:26.707 E  com.apple.WebKit.WebContent[6880:582a] [com.apple.TCC:access] send_message_with_reply_sync(): XPC_ERROR_CONNECTION_INVALID for message 0x7fb7e0f07de0
+2026-11-22 13:14:26.735 Df com.apple.WebKit.WebContent[6880:582a] (libMobileGestalt.dylib) Failed to copy the SysCfgDict MG key with error: 0
+2026-11-22 13:14:26.743 Df com.apple.WebKit.WebContent[6880:582a] [com.apple.AppKit:AutomaticTermination] void _NSDisableAutomaticTerminationAndLog(NSString *) No windows open yet
+2026-11-22 13:14:26.744 Df com.apple.WebKit.WebContent[6880:582a] [com.apple.xpc:connection] [0x7fb7e183e230] failed to do a bootstrap look-up: xpc_error=[159: Unknown error: 159]
+2026-11-22 13:14:26.744 Df com.apple.WebKit.WebContent[6880:582a] [com.apple.xpc:connection] [0x7fb7e183e230] invalidated after a failed init
+2026-11-22 13:14:26.744 Df com.apple.WebKit.WebContent[6880:582a] [com.apple.SkyLight:default] Set a breakpoint at SLSLogBreak to catch errors/faults as they are logged.
+2026-11-22 13:14:26.746 F  com.apple.WebKit.WebContent[6880:582a] [com.apple.CarbonCore:sharedcache] checkinWithServer Failed bootstrap_lookup2 for name of coreservicesd, kern_return_t=#1100/0x44c Permission denied name=com.apple.CoreServices.coreservicesd
+2026-11-22 13:14:26.746 E  com.apple.WebKit.WebContent[6880:582a] [com.apple.CarbonCore:FileIDMap] FSNode_SetFSSharedDeviceInfo failed to fetch IOKit properties for <private>
+2026-11-22 13:14:26.746 E  com.apple.WebKit.WebContent[6880:582a] [com.apple.CarbonCore:FileIDMap] FSNode_SetFSSharedDeviceInfo failed to fetch IOKit properties for <private>
+2026-11-22 13:14:26.757 E  com.apple.WebKit.WebContent[6880:582a] [com.apple.network:] networkd_settings_read_from_file Sandbox is preventing this process from reading networkd settings file at "/Library/Preferences/com.apple.networkd.plist", please add an exception.
+2026-11-22 13:14:26.757 E  com.apple.WebKit.WebContent[6880:582a] [com.apple.network:] networkd_settings_read_from_file Sandbox is preventing this process from reading networkd settings file at "/Library/Preferences/com.apple.networkd.plist", please add an exception.
+2026-11-22 13:14:26.760 Df com.apple.WebKit.WebContent[6880:582a] [com.apple.xpc:connection] [0x7fb7e1830e60] failed to do a bootstrap look-up: xpc_error=[159: Unknown error: 159]
+2026-11-22 13:14:26.760 Df com.apple.WebKit.WebContent[6880:582a] [com.apple.xpc:connection] [0x7fb7e1830e60] invalidated after a failed init
+2026-11-22 13:14:26.760 E  com.apple.WebKit.WebContent[6880:582a] [com.apple.coreaudio:audiocomp] AudioComponentPluginMgr.mm:590   reg server remote proxy error Error Domain=NSCocoaErrorDomain Code=4099 "The connection to service named com.apple.audio.AudioComponentRegistrar was invalidated: failed at lookup with error 159 - Sandbox restriction." UserInfo={NSDebugDescription=The connection to service named com.apple.audio.AudioComponentRegistrar was invalidated: failed at lookup with error 159 - Sandbox restriction.}
+2026-11-22 13:14:26.762 Df com.apple.WebKit.WebContent[6880:582a] [com.apple.xpc:connection] [0x7fb7e185b900] activating connection: mach=false listener=false peer=false name=com.apple.audio.SandboxHelper
+2026-11-22 13:14:26.762 Df com.apple.WebKit.WebContent[6880:582a] [com.apple.xpc:connection] [0x7fb7e185b900] failed to do a bootstrap look-up: xpc_error=[159: Unknown error: 159]
+2026-11-22 13:14:26.762 Df com.apple.WebKit.WebContent[6880:582a] [com.apple.xpc:connection] [0x7fb7e185b900] invalidated after a failed init
+2026-11-22 13:14:26.763 Df com.apple.WebKit.WebContent[6880:582a] (AudioToolboxCore)   SandboxHelperClient.cpp:120    IsComponentSandboxSafeInThisProcess: the XPC service was invalid
+2026-11-22 13:14:26.763 Df com.apple.WebKit.WebContent[6880:582a] (AudioToolboxCore)   SandboxHelperClient.cpp:120    IsComponentSandboxSafeInThisProcess: the XPC service was invalid
+2026-11-22 13:14:26.774 E  Safe Exam Browser[6494:5413] [com.apple.WebKit:ResourceLoadStatistics] Failed to request query parameters from WebPrivacy.
+2026-11-22 13:14:26.782 Df com.apple.WebKit.GPU[6640:5580] [com.apple.xpc:connection] [0x7f8560909a70] failed to do a bootstrap look-up: xpc_error=[159: Unknown error: 159]
+2026-11-22 13:14:26.782 Df com.apple.WebKit.GPU[6640:5580] [com.apple.xpc:connection] [0x7f8560909a70] invalidated after a failed init
+2026-11-22 13:14:26.847 Df com.apple.WebKit.WebContent[6880:582b] [com.apple.SkyLight:default] Failed to look up the port for "com.apple.windowserver.active" (1100)
+2026-11-22 13:14:26.852 E  com.apple.WebKit.GPU[6640:585b] (libCoreFSCache.dylib) fopen failed for data file: errno = 2 (No such file or directory)
+2026-11-22 13:14:26.852 E  com.apple.WebKit.GPU[6640:585b] (libCoreFSCache.dylib) Errors found! Invalidating cache...
+2026-11-22 13:14:26.854 Df Safe Exam Browser[6494:5413] [com.apple.WebKit:Process] 0x10e002d00 - [PID=6880] WebProcessProxy::canTerminateAuxiliaryProcess: returns false (pageCount=1, provisionalPageCount=0, suspendedPageCount=0, m_isInProcessCache=0, m_shutdownPreventingScopeCounter=0)
+2026-11-22 13:14:26.916 E  com.apple.WebKit.GPU[6640:585b] (libCoreFSCache.dylib) fopen failed for data file: errno = 2 (No such file or directory)
+2026-11-22 13:14:26.916 E  com.apple.WebKit.GPU[6640:585b] (libCoreFSCache.dylib) Errors found! Invalidating cache...
+2026-11-22 13:14:26.994 Df com.apple.WebKit.GPU[6640:5584] [com.apple.xpc:connection] [0x7f8560a3e410] failed to do a bootstrap look-up: xpc_error=[159: Unknown error: 159]
+2026-11-22 13:14:26.994 Df com.apple.WebKit.GPU[6640:5584] [com.apple.xpc:connection] [0x7f8560a3e410] invalidated after a failed init
+2026-11-22 13:14:27.353 E  Safe Exam Browser[6494:5413] [com.apple.WebKit:ResourceLoadStatistics] Failed to request query parameters from WebPrivacy.
+2026-11-22 13:14:27.353 Df Safe Exam Browser[6494:5413] [com.apple.WebKit:Process] 0x10e002d00 - [PID=6880] WebProcessProxy::canTerminateAuxiliaryProcess: returns false (pageCount=1, provisionalPageCount=0, suspendedPageCount=0, m_isInProcessCache=0, m_shutdownPreventingScopeCounter=0)
+2026-11-22 13:14:27.586 E  Safe Exam Browser[6494:5413] [com.apple.WebKit:ResourceLoadStatistics] Failed to request allowed query parameters from WebPrivacy.
+2026-11-22 13:14:27.588 E  Safe Exam Browser[6494:5413] [com.apple.WebKit:ResourceLoadStatistics] Failed to request query parameters from WebPrivacy.
+2026-11-22 13:14:27.588 Df Safe Exam Browser[6494:5413] [com.apple.WebKit:Process] 0x10e002d00 - [PID=6880] WebProcessProxy::canTerminateAuxiliaryProcess: returns false (pageCount=1, provisionalPageCount=0, suspendedPageCount=0, m_isInProcessCache=0, m_shutdownPreventingScopeCounter=0)
+2026-11-22 13:14:27.591 Df com.apple.WebKit.WebContent[6880:582a] [com.apple.WebKit:Network] 0x11003b000 - [pageID=28, frameID=31, isMainFrame=1] DocumentLoader::setMainDocumentError: (type=3, code=-999)
+2026-11-22 13:14:27.594 Df com.apple.WebKit.Networking[6646:55ca] [com.apple.CFNetwork:Summary] Task <33B50B9A-12B5-4316-8F9D-AC4B762012EC>.<4> summary for task failure {transaction_duration_ms=29, response_status=-1, connection=1, reused=1, reused_after_ms=0, request_start_ms=0, request_duration_ms=0, response_start_ms=0, response_duration_ms=0, request_bytes=472, request_throughput_kbps=3905, response_bytes=0, response_throughput_kbps=-9223372036854775808, cache_hit=false}
+2026-11-22 13:14:27.594 Df com.apple.WebKit.Networking[6646:55ca] [com.apple.CFNetwork:Default] Task <33B50B9A-12B5-4316-8F9D-AC4B762012EC>.<4> finished with error [-999] Error Domain=NSURLErrorDomain Code=-999 UserInfo={NSErrorFailingURLStringKey=<private>, NSErrorFailingURLKey=<private>, _NSURLErrorRelatedURLSessionTaskErrorKey=<private>, _NSURLErrorFailingURLSessionTaskErrorKey=<private>, NSLocalizedDescription=<private>}
+2026-11-22 13:14:27.595 E  com.apple.WebKit.Networking[6646:55ca] [com.apple.network:tcp] __nw_protocol_tcp_disconnect [C1.1.1.1:3] Sandbox does not allow __nexus_set_opt
+2026-11-22 13:14:29.403 E  Safe Exam Browser[6494:5413] [com.apple.WebKit:ResourceLoadStatistics] Failed to request restricted opener domains from WebPrivacy
+2026-11-22 13:14:42.474 Df Safe Exam Browser[6494:5413] [com.apple.WebKit:ProcessSuspension] 0x10e009e60 - ~ProcessAssertion: Releasing process assertion 'XPCConnectionTerminationWatchdog' for process with PID=6642

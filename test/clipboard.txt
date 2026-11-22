@@ -1,0 +1,1 @@
+clipboard after exam start: 'CLIPBOARD-TEST-42'
