@@ -56,7 +56,11 @@ def render(s):
     d.text((40 * s, 308 * s), "не открывается при первом запуске?", font=fb, fill=BLACK)
     d.text((40 * s, 328 * s), "Системные настройки → Конфиденциальность", font=f2, fill=BLACK)
     d.text((40 * s, 345 * s), "и безопасность → «Всё равно открыть»", font=f2, fill=BLACK)
-    d.text((W - 82 * s, 318 * s), "/><", font=ImageFont.truetype(FMB, 26 * s), fill=BLACK)
+    # знак SEBастьяна: «>_» в лаймовом квадрате с чёрной рамкой
+    x0, y0 = W - 92 * s, 314 * s
+    d.rectangle([x0, y0, x0 + 52 * s, y0 + 40 * s], fill=BLACK)
+    d.rectangle([x0 + 3 * s, y0 + 3 * s, x0 + 49 * s, y0 + 37 * s], fill=LIME)
+    d.text((x0 + 9 * s, y0 + 5 * s), ">_", font=ImageFont.truetype(FMB, 24 * s), fill=BLACK)
     return im
 
 

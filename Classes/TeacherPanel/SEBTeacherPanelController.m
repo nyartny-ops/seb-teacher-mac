@@ -874,7 +874,7 @@ static const CGFloat SEBAccessKeyWindowWidth = 460;
         if ([self cachedRequired] == 0) {
             [self finish:YES]; // в прошлый раз ключ был не нужен — не мешаем работать без интернета
         } else {
-            [self showWindowWithError:@"Нет связи с сервером SEBастьяна. Проверь интернет, выключи VPN и нажми «Повторить»."
+            [self showWindowWithError:@"Нет связи с сервером SEBастьяна. Включи VPN, проверь интернет и нажми «Повторить»."
                               offline:YES];
         }
     }];
@@ -897,7 +897,7 @@ static const CGFloat SEBAccessKeyWindowWidth = 460;
 
 - (void)buildWindow
 {
-    NSWindow *window = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, SEBAccessKeyWindowWidth, 330)
+    NSWindow *window = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, SEBAccessKeyWindowWidth, 370)
                                                    styleMask:NSWindowStyleMaskTitled
                                                      backing:NSBackingStoreBuffered
                                                        defer:NO];
@@ -911,7 +911,7 @@ static const CGFloat SEBAccessKeyWindowWidth = 460;
     title.font = [NSFont systemFontOfSize:24 weight:NSFontWeightSemibold];
 
     self.infoLabel = [NSTextField wrappingLabelWithString:
-        @"Получи ключ в Telegram-боте SEBастьян («🔑 Получить ключ») и введи его ниже.\nОдин ключ — один запуск."];
+        @"Получи ключ в Telegram-боте SEBастьян («Получить ключ») и введи его ниже. Один ключ — один запуск.\n\nНужен включённый VPN: так SEB сможет проверить ключ. После входа VPN можно выключить."];
     self.infoLabel.alignment = NSTextAlignmentCenter;
     self.infoLabel.font = [NSFont systemFontOfSize:13];
     self.infoLabel.preferredMaxLayoutWidth = SEBAccessKeyWindowWidth - 60;
@@ -955,7 +955,7 @@ static const CGFloat SEBAccessKeyWindowWidth = 460;
     [stack setCustomSpacing:18 afterView:self.errorLabel];
     stack.translatesAutoresizingMaskIntoConstraints = NO;
 
-    NSView *view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, SEBAccessKeyWindowWidth, 330)];
+    NSView *view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, SEBAccessKeyWindowWidth, 370)];
     [view addSubview:stack];
     [NSLayoutConstraint activateConstraints:@[
         [stack.centerXAnchor constraintEqualToAnchor:view.centerXAnchor],
@@ -1031,7 +1031,7 @@ static const CGFloat SEBAccessKeyWindowWidth = 460;
         NSString *message = [json[@"message"] isKindOfClass:[NSString class]] ? json[@"message"] : nil;
         if (!message) {
             message = status == 0
-                ? @"Нет связи с сервером SEBастьяна. Проверь интернет и VPN, потом попробуй ещё раз."
+                ? @"Нет связи с сервером SEBастьяна. Включи VPN и проверь интернет, потом попробуй ещё раз."
                 : [NSString stringWithFormat:@"Сервер ответил ошибкой (%ld). Попробуй ещё раз.", (long)status];
         }
         self.errorLabel.stringValue = message;
